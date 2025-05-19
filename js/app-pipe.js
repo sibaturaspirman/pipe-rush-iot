@@ -237,6 +237,7 @@ function checkResult() {
         if (lives <= 0) {
             wrongSound.play()
             overlayGame.textContent = "Game Over!";
+            $(".ld-you").hide()
 
             setTimeout(() => {
                 $("#sectionGameplay").addClass("hide")
