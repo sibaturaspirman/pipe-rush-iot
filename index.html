@@ -178,6 +178,30 @@
             hitCount++;  // Increment counter
             document.getElementById('hit-count').textContent = hitCount;  // Update display
             addLogEntry(`Playing game ${index} - Hit #${hitCount}`, "trigger");
+
+            console.log(pageStatus)
+            if(pageStatus == 'home'){
+                btnSound.play()
+                pageStart()
+            }else if(pageStatus == 'fill'){
+                btnSound.play()
+                fillName()
+            }else if(pageStatus == 'howto'){
+                btnSound.play()
+                playTheGame()
+            }else if(pageStatus == 'gameon'){
+                btnSound.play()
+                if(isRotating) {
+                    isRotating = false;
+                    clearInterval(interval);
+                    checkResult();
+                }
+            
+            }else if(pageStatus == 'leaderboard'){
+                btnSound.play()
+                backToHome()
+
+            }
         }
 
         // Initialize UI and connect when page loads

@@ -322,8 +322,6 @@ function playTheGame(){
 
 // CONTROL THE GAME with ENTER
 window.addEventListener("keydown", (e) => {
-    const isMac = navigator.platform.toUpperCase().includes('MAC');
-
     if (e.key === "Enter") {
         console.log(pageStatus)
         if(pageStatus == 'home'){
