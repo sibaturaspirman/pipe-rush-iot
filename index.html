@@ -1,0 +1,200 @@
+<!-- //(v.0.0.3) ...................................................antigravity.id..........................................................-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PIPE RUSH (v.0.0.3)</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="shortcut icon" href="assets/images/favicon.png"/>
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+
+	<meta name="description" content="An interactive game. Come on, play this game" />
+    <link rel="stylesheet" href="css/main.css">
+
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#111111" />
+
+    <script type="text/javascript" src="js/polyfill.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.1.0.js"></script>
+    <script type="text/javascript" src="js/howler.min.js"></script>
+    <style>
+        #hit-counter {
+            font-size: 24px;
+            margin: 20px 0;
+            padding: 10px;
+            background: #e8f5e9;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+<body style="background-color: #000;">
+    <!-- MODAL -->
+    <div class="overlayGame hide" id="overlayGame">&nbsp;</div>
+    <!-- !MODAL -->
+
+    <div class="cosl"><div class="block-image"><img src="./assets/images/COSL.png" alt="Kalbe"></div></div>
+    
+    <!-- GAMEPLAY -->
+    <div class="gameplay">
+        <div class="section home hidex" id="sectionHome" onclick="pageStart()">
+            <div class="logo">
+                <div class="block-image"><img src="./assets/images/logo.png" alt="Kalbe"></div>
+                <div class="block-image"><img src="./assets/images/TAP.png" alt="Kalbe"></div>
+            </div>
+        </div>
+        <div class="section gamearea hide" id="sectionLeaderboard">
+            <div class="block-image" style="width: 31%;margin-bottom: 1rem;"><img src="./assets/images/LEADERBOARD.png" alt="Kalbe"></div>
+            <ol id="leaderboardList" class="leaderboard">
+                <li>
+                    <div class="block-image"><img src="./assets/images/BG-LD.png" alt="Kalbe"></div>
+                    <div class="leaderboard-area">
+                        <div class="leaderboard-name"><span>1</span> <span>Ahmad</span></div>
+                        <div class="leaderboard-time"><div class="block-image"><img src="./assets/images/TIMER.png" alt="Kalbe"></div> <span>00:00:00</span></div>
+                    </div>
+                </li>
+            </ol>
+            <div class="ld-you" >
+                <div class="block-image"><img src="./assets/images/BG-LD2.png" alt="Kalbe"></div>
+                <div class="ld-you-area">
+                    <div class="leaderboard-name"><span style="color: #fff;">YOU</span></div>
+                    <div class="leaderboard-time"><div class="block-image"><img src="./assets/images/TIMER.png" alt="Kalbe"></div> <span id="timerGame2" style="color: #fff;">00:00:00</span></div>
+                </div>
+            </div>
+            <div class="block-image back" onclick="backToHome()"><img src="./assets/images/BACK.png" alt="Kalbe"></div>
+        </div>
+        <div class="section fill hide" id="sectionFill">
+            <div class="fill-name">
+                <div class="block-image" style="width: 60%;"><img src="./assets/images/FILL-NAME.png" alt="Kalbe"></div>
+                <div class="fill-name-input">
+                    <div class="block-image"><img src="./assets/images/INPUT.png" alt="Kalbe"></div>
+                    <input type="text" name="name" id="fillName" value="">
+                </div>
+                <h4 id="errorName" style="display: none;">ENTER YOUR NAME!</h4>
+                <div class="block-image" id="btnNext" style="width: 35%;margin-top: 2rem;" onclick="fillName()"><img src="./assets/images/BTN-NEXT.png" alt="Kalbe"></div>
+            </div>
+        </div>
+        <div class="section howto hide" id="sectionHowto" onclick="playTheGame()"></div>
+        <div class="section win hide" id="sectionWin">
+            <div class="fnsh">
+                <div class="block-image"><img src="./assets/images/FINISH-TIMER.png" alt="Kalbe"></div>
+                <div class="fnsh-area">
+                    <div class="leaderboard-time"><div class="block-image"><img src="./assets/images/TIMER.png" alt="Kalbe"></div> <span id="timerGame3">00:00:00</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="section lose hide" id="sectionLose"></div>
+        <div class="section gamearea hide" id="sectionGameplay">
+            <div class="pipa-area">
+                <div class="block-image"><img src="./assets/images/PIPA.png" alt="Kalbe"></div>
+
+                <div class="part" id="part1">
+                    <div class="block-image"><img src="./assets/images/Part 1 - Merah.png" alt="Kalbe"></div>
+                    <div class="block-image"><img src="./assets/images/Part 1 - BIru.png" alt="Kalbe"></div>
+                </div>
+                <div class="part" id="part2">
+                    <div class="block-image"><img src="./assets/images/Part 2 - Merah.png" alt="Kalbe"></div>
+                    <div class="block-image"><img src="./assets/images/Part 2 - BIru.png" alt="Kalbe"></div>
+                </div>
+                <div class="part" id="part3">
+                    <div class="block-image"><img src="./assets/images/Part 3 - Merah.png" alt="Kalbe"></div>
+                    <div class="block-image"><img src="./assets/images/Part 3 - BIru.png" alt="Kalbe"></div>
+                </div>
+                <div class="part" id="part4">
+                    <div class="block-image" style="transform: rotate(3deg);"><img src="./assets/images/Part 4 - Merah.png" alt="Kalbe"></div>
+                    <div class="block-image" style="transform: rotate(3deg);"><img src="./assets/images/Part 4 - BIru.png" alt="Kalbe"></div>
+                </div>
+            </div>
+            <div class="nyawa">
+                <div class="block-image"><img src="./assets/images/NYAWA-4.png" alt="Kalbe"></div>
+                <div class="block-image" style="display: none;"><img src="./assets/images/NYAWA-3.png" alt="Kalbe"></div>
+                <div class="block-image" style="display: none;"><img src="./assets/images/NYAWA-2.png" alt="Kalbe"></div>
+                <div class="block-image" style="display: none;"><img src="./assets/images/NYAWA-1.png" alt="Kalbe"></div>
+                <div class="block-image" style="display: none;"><img src="./assets/images/NYAWA-0.png" alt="Kalbe"></div>
+            </div>
+            <div class="timer">
+                <div class="block-image"><img src="./assets/images/BG-TIMER.png" alt="Kalbe"></div>
+                <span id="timerGame">00:00:00</span>
+            </div>
+            <div id="stage">Pipes: 1 / 4</div>
+            <div id="result">
+                <div class="block-image shake" style="display: none;width: 454px;margin-bottom: 10rem;margin-left: 15rem;"><img src="./assets/images/PERFECT.png" alt="Kalbe"></div>
+                <div class="block-image shake" style="display: none;width: 360px;margin-bottom: 11rem;margin-left: 12rem;"><img src="./assets/images/MISS.png" alt="Kalbe"></div>
+            </div>
+            <div id="lives" style="position: absolute;font-size: 5vw;left: 0;top: 0;display: none;">❤️❤️❤️❤️</div>
+            <div id="bestTime" style="position: absolute;font-size: 5vw;left: 0;top: 4rem;display: none;">Best Time: --:--:---</div>
+        </div>
+    </div>
+    <!-- !GAMEPLAY -->
+
+
+
+    <div id="hit-counter">
+        Hits: <span id="hit-count">0</span>
+    </div>
+
+    <script type="text/javascript" src="js/app-pipe.js"></script>
+    <script type="module">
+        import { autoConnect, defaultStyleConfig, createFloatingStatus, addLogEntry } from './js/serial.js';
+
+        // Custom style configuration
+        const customStyleConfig = {
+            position: {
+                connection: { bottom: '20px', left: '20px' },
+                logs: { bottom: '20px', left: '120px' }
+            },
+            appearance: {
+                background: 'rgba(0, 0, 0, 0)',
+                backgroundHover: 'rgba(0, 0, 0, 0)',
+                textColor: 'rgba(0, 0, 0, 0.5)',
+                fontSize: '10px',
+                borderRadius: '15px',
+                padding: '8px 12px',
+                gap: '6px'
+            },
+            shadow: {
+                enabled: false,
+                color: 'rgba(0, 0, 0, 0.2)',
+                hoverColor: 'rgba(0, 0, 0, 0.3)',
+                size: '0 2px 8px',
+                hoverSize: '0 2px 12px'
+            },
+            indicator: {
+                size: '8px',
+                connectedColor: '#4caf50',
+                disconnectedColor: '#f44336'
+            }
+        };
+
+        let hitCount = 0;  // Add counter variable
+
+        // Event listener for trigger detection
+        window.addEventListener('triggerDetected', (event) => {
+            const { index, timing } = event.detail;
+            playGame(index);
+        });
+
+        function playGame(index) {
+            hitCount++;  // Increment counter
+            document.getElementById('hit-count').textContent = hitCount;  // Update display
+            addLogEntry(`Playing game ${index} - Hit #${hitCount}`, "trigger");
+        }
+
+        // Initialize UI and connect when page loads
+        window.addEventListener('load', async () => {
+            // Create the floating status UI first
+            createFloatingStatus(customStyleConfig);
+            // Then try to auto-connect
+            await autoConnect();
+        });
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(() => console.log('✅ Service Worker Registered v1.0'))
+            .catch(err => console.error('❌ Service Worker Error:', err));
+        }
+    </script>
+</body>
+</html>
